@@ -147,18 +147,6 @@ function addToCart(productId) {
     updateCart();
 }
 
-/* Función para actualizar el carrito
-function updateCart() {
-    cartItemsList.innerHTML = '';
-    cart.forEach(product => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${product.name} - $${product.price}`;
-        cartItemsList.appendChild(listItem);
-    });
-    checkoutButton.style.display = cart.length > 0 ? 'block' : 'none';
-}
-*/
-
 // Función para actualizar el carrito
 function updateCart() {
     cartItemsList.innerHTML = ''; // Limpiar la lista del carrito
