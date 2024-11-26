@@ -14,6 +14,7 @@ header {
 
 #products {
     display: flex;
+    flex-wrap: wrap; /* Permite que los productos se ajusten a nuevas filas */
     justify-content: space-around;
     margin: 20px;
 }
@@ -24,6 +25,18 @@ header {
     margin: 10px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 22%; /* Ancho inicial para pantallas grandes */
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.product h3 {
+    margin: 10px 0;
+}
+
+.product p {
+    font-size: 1.1em;
+    color: #555;
 }
 
 button {
@@ -51,8 +64,31 @@ button:hover {
 #auth {
     text-align: center;
     margin-top: 50px;
+    background-color: #555;
+    font-style:unset;
+    color:#f4f4f4;
+    
 }
 
 form {
     margin: 20px;
+}
+
+/* Reglas de responsividad */
+@media (max-width: 1200px) {
+    .product {
+        width: 30%; /* 3 productos por fila en pantallas medianas */
+    }
+}
+
+@media (max-width: 768px) {
+    .product {
+        width: 45%; /* 2 productos por fila en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .product {
+        width: 100%; /* 1 producto por fila en pantallas muy pequeñas */
+    }
 }
