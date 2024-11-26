@@ -20,7 +20,7 @@ const products = [
         images:[ 'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_3QR.png?v=1693959208',
                  'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_F.png?v=1693959208',
                  'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_3QL.png?v=1693959208'] },
-    { id: 6, name: 'Chicago White Sox', price: 998, 
+    { id: 6, name: 'Chicago White Sox', price: 999, 
         images:[ 'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_3QR.png?v=1709059965',
                  'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_F.png?v=1709059965',
                  'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_3QL.png?v=1709059965'] },
@@ -190,10 +190,14 @@ loginForm.addEventListener('submit', (e) => {
         authDiv.style.display = 'none';
         displayProducts();
         updateCart();
+
+        // Ocultar el botón de inicio de sesión
+        document.getElementById('login-button').style.display = 'none';
     } else {
         alert('Correo o contraseña incorrectos');
     }
 });
+
 
 // Función para cerrar sesión
 logoutButton.addEventListener('click', () => {
@@ -202,6 +206,9 @@ logoutButton.addEventListener('click', () => {
     logoutButton.style.display = 'none';
     authDiv.style.display = 'block';
     displayProducts();
+
+    // Mostrar el botón de inicio de sesión nuevamente
+    document.getElementById('login-button').style.display = 'block';
 });
 
 // Función para alternar entre formulario de login y signup
