@@ -1,11 +1,17 @@
 const usersDb = {}; // Base de datos de usuarios (en realidad debería ser un JSON o base de datos real).
 const products = [
-    { id: 1, name: 'Producto 1', price: 10, image: 'https://www.newera.mx/cdn/shop/files/60506390_60506358_59FIFTY_MLB24JULY45950_3QR.png?v=1718598387' },
-    { id: 2, name: 'Producto 2', price: 20, image: 'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_3QR.jpg?v=1728863538' },
-    { id: 3, name: 'Producto 3', price: 30, image: 'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_3QR.png?v=1688688139' },
-    { id: 4, name: 'Producto 4', price: 40, image: 'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_3QR.jpg?v=1729929326 ' },
-    { id: 5, name: 'Producto 5', price: 50, image: 'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_3QR.png?v=1693959208' },
-    { id: 6, name: 'Producto 6', price: 60, image: 'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_3QR.png?v=1709059965' },
+    { id: 1, name: 'Boston Red Sox', price: 999, image: 'https://www.newera.mx/cdn/shop/files/60506390_60506358_59FIFTY_MLB24JULY45950_3QR.png?v=1718598387' },
+    { id: 2, name: 'Boston Red Sox', price: 1099, image: 'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_3QR.jpg?v=1728863538' },
+    { id: 3, name: 'Boston Red Sox', price: 999, image: 'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_3QR.png?v=1688688139' },
+    { id: 4, name: 'Chicago White Sox', price: 799, image: 'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_3QR.jpg?v=1729929326 ' },
+    { id: 5, name: 'Chicago White Sox', price: 999, image: 'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_3QR.png?v=1693959208' },
+    { id: 6, name: 'Chicago White Sox', price: 998, image: 'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_3QR.png?v=1709059965' },
+    { id: 7, name: 'Pittsburgh Pirates', price: 899, image: 'https://www.newera.mx/cdn/shop/files/60426577_59FIFTY_HARVEST59FIFTY_PITPIRCO_TIR_3QR.png?v=1693874600' },
+    { id: 8, name: 'Producto 8', price: 0,  },
+    { id: 7, name: 'Producto 7', price: 70 },
+    { id: 8, name: 'Producto 8', price: 0 },
+    { id: 7, name: 'Producto 7', price: 70 },
+    { id: 8, name: 'Producto 8', price: 0 },
     { id: 7, name: 'Producto 7', price: 70 },
     { id: 8, name: 'Producto 8', price: 0 },
 ];
