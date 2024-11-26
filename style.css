@@ -94,7 +94,7 @@ form {
 }
 
 #login-button {
-    background-color: #007BFF;
+    background-color: #555;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -105,5 +105,5 @@ form {
 }
 
 #login-button:hover {
-    background-color: #0056b3;
+    background-color: #555;
 }
