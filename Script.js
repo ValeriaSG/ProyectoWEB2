@@ -147,7 +147,7 @@ function addToCart(productId) {
     updateCart();
 }
 
-// Función para actualizar el carrito
+/* Función para actualizar el carrito
 function updateCart() {
     cartItemsList.innerHTML = '';
     cart.forEach(product => {
@@ -156,6 +156,43 @@ function updateCart() {
         cartItemsList.appendChild(listItem);
     });
     checkoutButton.style.display = cart.length > 0 ? 'block' : 'none';
+}
+*/
+
+// Función para actualizar el carrito
+function updateCart() {
+    cartItemsList.innerHTML = ''; // Limpiar la lista del carrito
+
+    if (cart.length === 0) {
+        cartItemsList.innerHTML = '<p>El carrito está vacío</p>';
+        checkoutButton.style.display = 'none';
+        return;
+    }
+
+    cart.forEach((product, index) => {
+        const listItem = document.createElement('li');
+        
+        // Crear contenido del producto
+        const productText = document.createTextNode(`${product.name} - $${product.price}`);
+        listItem.appendChild(productText);
+
+        // Crear botón de eliminación
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Eliminar';
+        removeButton.style.marginLeft = '10px';
+        removeButton.onclick = () => removeFromCart(index); // Usar el índice para identificar el producto
+        listItem.appendChild(removeButton);
+
+        cartItemsList.appendChild(listItem); // Añadir a la lista
+    });
+
+    checkoutButton.style.display = 'block'; // Mostrar botón de compra si hay productos
+}
+
+// Función para eliminar un producto del carrito
+function removeFromCart(index) {
+    cart.splice(index, 1); // Eliminar el producto del carrito usando su índice
+    updateCart(); // Actualizar el carrito visual
 }
 
 // Función para manejar el registro de usuarios
