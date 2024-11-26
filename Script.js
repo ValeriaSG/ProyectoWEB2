@@ -7,7 +7,7 @@ const products = [
     { id: 5, name: 'Producto 5', price: 50 },
     { id: 6, name: 'Producto 6', price: 60 },
     { id: 7, name: 'Producto 7', price: 70 },
-    { id: 8, name: 'Producto 8', price: 80 },
+    { id: 8, name: 'Producto 8', price: 0 },
 ];
 let currentUser = null;
 let cart = [];
@@ -48,7 +48,6 @@ function addToCart(productId) {
     cart.push(product);
     updateCart();
 }
-
 
 // Función para actualizar el carrito
 function updateCart() {
@@ -120,6 +119,7 @@ window.onload = () => {
     displayProducts();
 };
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const authDiv = document.getElementById('auth');
     const loginButton = document.getElementById('login-button');
@@ -132,4 +132,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
