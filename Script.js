@@ -1,11 +1,29 @@
 const usersDb = {}; // Base de datos de usuarios (en realidad debería ser un JSON o base de datos real).
 const products = [
-    { id: 1, name: 'Boston Red Sox', price: 999, image: 'https://www.newera.mx/cdn/shop/files/60506390_60506358_59FIFTY_MLB24JULY45950_3QR.png?v=1718598387' },
-    { id: 2, name: 'Boston Red Sox', price: 1099, image: 'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_3QR.jpg?v=1728863538' },
-    { id: 3, name: 'Boston Red Sox', price: 999, image: 'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_3QR.png?v=1688688139' },
-    { id: 4, name: 'Chicago White Sox', price: 799, image: 'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_3QR.jpg?v=1729929326 ' },
-    { id: 5, name: 'Chicago White Sox', price: 999, image: 'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_3QR.png?v=1693959208' },
-    { id: 6, name: 'Chicago White Sox', price: 998, image: 'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_3QR.png?v=1709059965' },
+    { id: 1, name: 'Boston Red Sox', price: 999, 
+      images:[ 'https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_3QR.png?v=1698727230',
+             'https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_F.png?v=1698727230',
+              'https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_3QL.png?v=1698727230' ]}, 
+    { id: 2, name: 'Boston Red Sox', price: 1099, 
+        images:[ 'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_3QR.jpg?v=1728863538',
+                  'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_F.jpg?v=1728863538',
+                  'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_3QL.jpg?v=1728863538' ]},
+    { id: 3, name: 'Boston Red Sox', price: 999, 
+        images:[ 'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_3QR.png?v=1688688139',
+                  'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_F.png?v=1688688139',
+                  'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_3QL.png?v=1688688139'] },
+    { id: 4, name: 'Chicago White Sox', price: 799, 
+        images:[ 'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_3QR.jpg?v=1729929326',
+                'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_F.jpg?v=1729929325',
+                 'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_3QL.jpg?v=1729929325'] },
+    { id: 5, name: 'Chicago White Sox', price: 999, 
+        images:[ 'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_3QR.png?v=1693959208',
+                 'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_F.png?v=1693959208',
+                 'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_3QL.png?v=1693959208'] },
+    { id: 6, name: 'Chicago White Sox', price: 998, 
+        images:[ 'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_3QR.png?v=1709059965',
+                 'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_F.png?v=1709059965',
+                 'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_3QL.png?v=1709059965'] },
     { id: 7, name: 'Pittsburgh Pirates', price: 899, image: 'https://www.newera.mx/cdn/shop/files/60426577_59FIFTY_HARVEST59FIFTY_PITPIRCO_TIR_3QR.png?v=1693874600' },
     { id: 8, name: 'Producto 8', price: 0,  },
     { id: 7, name: 'Producto 7', price: 70 },
@@ -29,7 +47,7 @@ const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
 const toggleAuthButton = document.getElementById('toggle-auth');
 
-// Función para mostrar los productos
+/* Función para mostrar los productos
 function displayProducts() {
     productsDiv.innerHTML = '';
     products.forEach(product => {
@@ -41,6 +59,61 @@ function displayProducts() {
             <p>Precio: $${product.price}</p>
             <button onclick="addToCart(${product.id})">Añadir al carrito</button>
         `;
+        productsDiv.appendChild(productDiv);
+    });
+}
+*/
+
+function displayProducts() {
+    productsDiv.innerHTML = '';
+    products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product');
+        
+        // Crear el carrousel para las imágenes del producto
+        const carouselDiv = document.createElement('div');
+        carouselDiv.classList.add('carousel');
+
+        // Mostrar las imágenes del carrousel
+        let currentImageIndex = 0;
+        const imgElement = document.createElement('img');
+        imgElement.src = product.images[currentImageIndex];
+        imgElement.alt = `${product.name} - Imagen principal`;
+        carouselDiv.appendChild(imgElement);
+
+        // Botón de retroceder
+        const prevButton = document.createElement('button');
+        prevButton.textContent = '←';
+        prevButton.classList.add('carousel-button');
+        prevButton.onclick = () => {
+            currentImageIndex = (currentImageIndex - 1 + product.images.length) % product.images.length;
+            imgElement.src = product.images[currentImageIndex];
+        };
+        carouselDiv.appendChild(prevButton);
+
+        // Botón de avanzar
+        const nextButton = document.createElement('button');
+        nextButton.textContent = '→';
+        nextButton.classList.add('carousel-button');
+        nextButton.onclick = () => {
+            currentImageIndex = (currentImageIndex + 1) % product.images.length;
+            imgElement.src = product.images[currentImageIndex];
+        };
+        carouselDiv.appendChild(nextButton);
+
+        // Agregar el carrousel al producto
+        productDiv.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Precio: $${product.price}</p>
+        `;
+        productDiv.appendChild(carouselDiv);
+
+        // Botón para añadir al carrito
+        const addButton = document.createElement('button');
+        addButton.textContent = 'Añadir al carrito';
+        addButton.onclick = () => addToCart(product.id);
+        productDiv.appendChild(addButton);
+
         productsDiv.appendChild(productDiv);
     });
 }
