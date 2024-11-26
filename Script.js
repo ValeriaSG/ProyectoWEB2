@@ -49,6 +49,7 @@ function addToCart(productId) {
     updateCart();
 }
 
+
 // Función para actualizar el carrito
 function updateCart() {
     cartItemsList.innerHTML = '';
@@ -118,3 +119,17 @@ function toggleAuth() {
 window.onload = () => {
     displayProducts();
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+    const authDiv = document.getElementById('auth');
+    const loginButton = document.getElementById('login-button');
+
+    loginButton.addEventListener('click', () => {
+        const offsetTop = authDiv.offsetTop;
+        window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+        });
+    });
+});
+
