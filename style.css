@@ -155,3 +155,16 @@ form {
 .product button {
     margin-top: 10px;
 }
+
+footer {
+    text-align: center;
+    background-color: #f4f4f4;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #555;
+    border-top: 1px solid #ddd;
+}
+
+footer p {
+    margin: 5px 0;
+}
