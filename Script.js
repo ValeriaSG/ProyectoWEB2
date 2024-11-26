@@ -1,6 +1,6 @@
 const usersDb = {}; // Base de datos de usuarios (en realidad debería ser un JSON o base de datos real).
 const products = [
-    { id: 1, name: 'Producto 1', price: 10 },
+    { id: 1, name: 'Producto 1', price: 10, image: 'https://www.newera.mx/cdn/shop/files/60506390_60506358_59FIFTY_MLB24JULY45950_3QR.png?v=1718598387' },
     { id: 2, name: 'Producto 2', price: 20 },
     { id: 3, name: 'Producto 3', price: 30 },
     { id: 4, name: 'Producto 4', price: 40 },
@@ -30,6 +30,7 @@ function displayProducts() {
         const productDiv = document.createElement('div');
         productDiv.classList.add('product');
         productDiv.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover;">
             <h3>${product.name}</h3>
             <p>Precio: $${product.price}</p>
             <button onclick="addToCart(${product.id})">Añadir al carrito</button>
