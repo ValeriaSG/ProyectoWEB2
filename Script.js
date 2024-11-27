@@ -51,6 +51,7 @@ const products = [
                     'https://www.newera.mx/cdn/shop/files/60358061_3QL.png?v=1704412507'] },
     
 ];
+
 let currentUser = null;
 let cart = [];
 
@@ -292,6 +293,7 @@ const productListDiv = document.getElementById('product-list');
 const loginButton = document.getElementById('login-button');
 const userAuthDiv = document.getElementById('auth');
 const cartDiv = document.getElementById('cart');
+const logoutButon = document.getElementById('logout-button'); // Botón de cerrar sesión
 
 // Manejar el inicio de sesión del vendedor
 document.getElementById('seller-login-form').addEventListener('submit', (e) => {
@@ -305,17 +307,28 @@ document.getElementById('seller-login-form').addEventListener('submit', (e) => {
         alert(`Bienvenido, ${seller.name}`);
         
         // Ocultar elementos no relevantes para el vendedor
-        sellerAuthDiv.style.display = 'none'; // Ocultar formulario de inicio de sesión de vendedores
-        loginButton.style.display = 'none'; // Ocultar botón de inicio de sesión del header
-        userAuthDiv.style.display = 'none'; // Ocultar formulario de inicio de sesión de compradores
-        cartDiv.style.display = 'none'; // Ocultar el carrito
+        sellerAuthDiv.style.display = 'none';
+        loginButton.style.display = 'none';
+        userAuthDiv.style.display = 'none';
+        cartDiv.style.display = 'none';
 
-        // Mostrar el panel de administración
+        // Mostrar elementos del vendedor
         adminPanel.style.display = 'block';
+        logoutButton.style.display = 'block'; // Mostrar botón de cerrar sesión
+
         displayAdminProducts();
     } else {
         alert('Correo o contraseña incorrectos para vendedor.');
     }
+});
+
+// Manejar el cierre de sesión del vendedor
+logoutButton.addEventListener('click', () => {
+    isSeller = false;
+    alert('Sesión cerrada correctamente.');
+
+    // Recargar la página para restablecer el estado inicial
+    window.location.reload();
 });
 
 // Mostrar productos en el panel de administración
