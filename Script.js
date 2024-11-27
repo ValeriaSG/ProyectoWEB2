@@ -295,3 +295,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Credenciales predefinidas para el vendedor
+    const sellerEmail = "vendedor@capstyle.com";
+    const sellerPassword = "contraseñaSegura";
+
+    // Elementos del DOM
+    const sellerLoginForm = document.getElementById("seller-login-form");
+    const sellerLoginEmail = document.getElementById("seller-login-email");
+    const sellerLoginPassword = document.getElementById("seller-login-password");
+    const sellerAuthTitle = document.getElementById("seller-auth-title");
+    const adminPanel = document.getElementById("admin-panel");
+    const sellerAuth = document.getElementById("seller-auth");
+
+    // Manejador del formulario de inicio de sesión
+    sellerLoginForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Evita que la página se recargue
+
+        const email = sellerLoginEmail.value.trim();
+        const password = sellerLoginPassword.value.trim();
+
+        // Validar credenciales
+        if (email === sellerEmail && password === sellerPassword) {
+            // Credenciales correctas
+            alert("Inicio de sesión como vendedor exitoso.");
+            sellerAuth.style.display = "none"; // Ocultar formulario de inicio de sesión
+            adminPanel.style.display = "block"; // Mostrar panel de administración
+        } else {
+            // Credenciales incorrectas
+            alert("Correo o contraseña incorrectos. Intenta nuevamente.");
+        }
+    });
+});
+
+
+
+
+
+
+

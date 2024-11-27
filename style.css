@@ -198,3 +198,39 @@ footer p {
 #cart-items li button:hover {
     background-color: #c0392b; 
 }
+
+#admin-panel {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-product {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#seller-auth {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#seller-auth form {
+    margin: 15px 0;
+}
+
+#toggle-seller-auth:hover {
+    background-color: #333;
+}
