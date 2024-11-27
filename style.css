@@ -175,3 +175,11 @@ footer p {
     font-size: 1.0em;
     vertical-align: middle;
 }
+
+#cart-items li {
+    margin-bottom: 10px; /* Espacio entre productos */
+    padding: 10px;       /* Agrega un espacio interno */
+    border: 1px solid #ddd; /* Línea de separación ligera */
+    border-radius: 5px;  /* Bordes redondeados */
+    background-color: #f9f9f9; /* Fondo para resaltar */
+}
