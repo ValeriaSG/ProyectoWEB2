@@ -1,51 +1,51 @@
 const usersDb = {}; // Base de datos de usuarios (en realidad debería ser un JSON o base de datos real).
 const products = [
-    { id: 1, name: 'Boston Red Sox', price: 999, 
+    { id: 1, name: 'Boston Red Sox', price: 999, stock: 10, 
       images:[ 'https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_3QR.png?v=1698727230',
-             'https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_F.png?v=1698727230',
-              'https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_3QL.png?v=1698727230' ]}, 
-    { id: 2, name: 'Boston Red Sox', price: 1099, 
+                    'https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_F.png?v=1698727230',
+                    'https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_3QL.png?v=1698727230' ]}, 
+    { id: 2, name: 'Boston Red Sox', price: 1099, stock: 10, 
         images:[ 'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_3QR.jpg?v=1728863538',
-                  'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_F.jpg?v=1728863538',
-                  'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_3QL.jpg?v=1728863538' ]},
-    { id: 3, name: 'Boston Red Sox', price: 999, 
+                    'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_F.jpg?v=1728863538',
+                    'https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_3QL.jpg?v=1728863538' ]},
+    { id: 3, name: 'Boston Red Sox', price: 999, stock: 10, 
         images:[ 'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_3QR.png?v=1688688139',
-                  'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_F.png?v=1688688139',
-                  'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_3QL.png?v=1688688139'] },
-    { id: 4, name: 'Chicago White Sox', price: 799, 
+                    'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_F.png?v=1688688139',
+                    'https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_3QL.png?v=1688688139'] },
+    { id: 4, name: 'Chicago White Sox', price: 799, stock: 10, 
         images:[ 'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_3QR.jpg?v=1729929326',
-                'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_F.jpg?v=1729929325',
-                 'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_3QL.jpg?v=1729929325'] },
-    { id: 5, name: 'Chicago White Sox', price: 999, 
+                    'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_F.jpg?v=1729929325',
+                    'https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_3QL.jpg?v=1729929325'] },
+    { id: 5, name: 'Chicago White Sox', price: 999, stock: 10, 
         images:[ 'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_3QR.png?v=1693959208',
-                 'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_F.png?v=1693959208',
-                 'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_3QL.png?v=1693959208'] },
-    { id: 6, name: 'Chicago White Sox', price: 999, 
+                    'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_F.png?v=1693959208',
+                    'https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_3QL.png?v=1693959208'] },
+    { id: 6, name: 'Chicago White Sox', price: 999, stock: 10, 
         images:[ 'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_3QR.png?v=1709059965',
-                 'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_F.png?v=1709059965',
-                 'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_3QL.png?v=1709059965'] },
-    { id: 7, name: 'Angeles Angels', price: 1099, 
+                    'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_F.png?v=1709059965',
+                    'https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_3QL.png?v=1709059965'] },
+    { id: 7, name: 'Angeles Angels', price: 1099, stock: 10, 
         images: ['https://www.newera.mx/cdn/shop/files/60655838_59FIFTY_MLB_ANGANG_BLK_3QR.jpg?v=1731904617',
                     'https://www.newera.mx/cdn/shop/files/60655838_59FIFTY_MLB_ANGANG_BLK_F.jpg?v=1731904617',
                     'https://www.newera.mx/cdn/shop/files/60655838_59FIFTY_MLB_ANGANG_BLK_3QL.jpg?v=1731904617']},
-    { id: 8, name: 'Angeles Angels', price: 999,
+    { id: 8, name: 'Angeles Angels', price: 999, stock: 10, 
         images:['https://www.newera.mx/cdn/shop/products/9286963658782.jpg?v=1667131910,',
                     'https://www.newera.mx/cdn/shop/products/9286963396638.jpg?v=1667131910',
                     'https://www.newera.mx/cdn/shop/products/9286963396638.jpg?v=1667131910']},
-    { id: 9, name: 'All Over', price: 1199,
+    { id: 9, name: 'All Over', price: 1199, stock: 10, 
         images:['https://www.newera.mx/cdn/shop/products/unnamed_bfcbf634-4bf8-4c90-b14e-531bb0d10e0b.jpg?v=1667109597',
                     'https://www.newera.mx/cdn/shop/products/unnamed_85f1b3de-8666-43a0-a557-89b9c4e2cc7e.jpg?v=1667109595',
                     'https://www.newera.mx/cdn/shop/products/unnamed_ca4ff562-df87-4ab8-9dda-a5f0e61ddf81.jpg?v=1667109593']},
         
-    { id: 10, name: 'Angeles Dodgers', price: 999, 
+    { id: 10, name: 'Angeles Dodgers', price: 999, stock: 10, 
         images:['https://www.newera.mx/cdn/shop/files/60366947_59FIFTY_M5950NEONE3_LOSDOD_BLK_3QR.png?v=1692683736',
                     'https://www.newera.mx/cdn/shop/files/60366947_59FIFTY_M5950NEONE3_LOSDOD_BLK_F.png?v=1692725663',
                     'https://www.newera.mx/cdn/shop/files/60366947_59FIFTY_M5950NEONE3_LOSDOD_BLK_3QL.png?v=1692725663']},
-    { id: 11, name: 'New York Yankees', price: 999,
+    { id: 11, name: 'New York Yankees', price: 999, stock: 10, 
         images:['https://www.newera.mx/cdn/shop/products/11591125_59FIFTY_MLBBASICFITTED_NEYYAN_GRA_3QR.png?v=1688498128',
                     'https://www.newera.mx/cdn/shop/products/11591125_59FIFTY_MLBBASICFITTED_NEYYAN_GRA_F.png?v=1688498128',
                     'https://www.newera.mx/cdn/shop/products/11591125_59FIFTY_MLBBASICFITTED_NEYYAN_GRA_3QL.png?v=1688498128',]},
-    { id: 8, name: 'New York Yankees', price: 999,
+    { id: 8, name: 'New York Yankees', price: 999, stock: 10, 
         images:['https://www.newera.mx/cdn/shop/files/60358061_2.png?v=1704412507',
                     'https://www.newera.mx/cdn/shop/files/60358061_1.png?v=1704412507',
                     'https://www.newera.mx/cdn/shop/files/60358061_3QL.png?v=1704412507'] },
@@ -87,48 +87,28 @@ function displayProducts() {
     products.forEach(product => {
         const productDiv = document.createElement('div');
         productDiv.classList.add('product');
-        
-        // Crear el carrousel para las imágenes del producto
-        const carouselDiv = document.createElement('div');
-        carouselDiv.classList.add('carousel');
 
-        // Mostrar las imágenes del carrousel
-        let currentImageIndex = 0;
-        const imgElement = document.createElement('img');
-        imgElement.src = product.images[currentImageIndex];
-        imgElement.alt = `${product.name} - Imagen principal`;
-        carouselDiv.appendChild(imgElement);
-
-        // Botón de retroceder
-        const prevButton = document.createElement('button');
-        prevButton.textContent = '←';
-        prevButton.classList.add('carousel-button');
-        prevButton.onclick = () => {
-            currentImageIndex = (currentImageIndex - 1 + product.images.length) % product.images.length;
-            imgElement.src = product.images[currentImageIndex];
-        };
-        carouselDiv.appendChild(prevButton);
-
-        // Botón de avanzar
-        const nextButton = document.createElement('button');
-        nextButton.textContent = '→';
-        nextButton.classList.add('carousel-button');
-        nextButton.onclick = () => {
-            currentImageIndex = (currentImageIndex + 1) % product.images.length;
-            imgElement.src = product.images[currentImageIndex];
-        };
-        carouselDiv.appendChild(nextButton);
-
-        // Agregar el carrousel al producto
+        // Mostrar detalles del producto
         productDiv.innerHTML = `
             <h3>${product.name}</h3>
             <p>Precio: $${product.price}</p>
+            <p>Stock disponible: ${product.stock}</p>
         `;
+
+        // Crear el carrousel
+        const carouselDiv = document.createElement('div');
+        carouselDiv.classList.add('carousel');
+        const imgElement = document.createElement('img');
+        imgElement.src = product.images[0];
+        imgElement.alt = `${product.name} - Imagen principal`;
+        carouselDiv.appendChild(imgElement);
+
         productDiv.appendChild(carouselDiv);
 
         // Botón para añadir al carrito
         const addButton = document.createElement('button');
         addButton.textContent = 'Añadir al carrito';
+        addButton.disabled = product.stock === 0; // Deshabilitar si no hay stock
         addButton.onclick = () => addToCart(product.id);
         productDiv.appendChild(addButton);
 
@@ -136,18 +116,39 @@ function displayProducts() {
     });
 }
 
-// Función para agregar al carrito
+
+
 function addToCart(productId) {
     if (!currentUser) {
         alert('¡Debes iniciar sesión para agregar productos al carrito!');
         return;
     }
+
+    // Buscar el producto en la lista original
     const product = products.find(p => p.id === productId);
-    cart.push(product);
-    updateCart();
+
+    // Verificar si hay stock disponible
+    if (product.stock > 0) {
+        // Reducir el stock en la lista original
+        product.stock--;
+
+        // Agregar al carrito (opcionalmente, puedes clonar el objeto si no deseas modificar el original)
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            stock: product.stock // Guardar el stock actualizado en el carrito (si lo deseas)
+        });
+
+        updateCart();
+        displayProducts(); // Actualizar la vista de los productos para reflejar el stock restante
+        alert(`${product.name} añadido al carrito. Stock restante: ${product.stock}`);
+    } else {
+        alert(`Lo sentimos, el producto "${product.name}" está agotado.`);
+    }
 }
 
-// Función para actualizar el carrito
+
 function updateCart() {
     cartItemsList.innerHTML = ''; // Limpiar la lista del carrito
 
@@ -159,29 +160,36 @@ function updateCart() {
 
     cart.forEach((product, index) => {
         const listItem = document.createElement('li');
-        
-        // Crear contenido del producto
-        const productText = document.createTextNode(`${product.name} - $${product.price}`);
-        listItem.appendChild(productText);
 
-        // Crear botón de eliminación
+        // Mostrar detalles del producto
+        listItem.textContent = `${product.name} - $${product.price}`;
+
+        // Botón para eliminar el producto del carrito
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Eliminar';
-        removeButton.style.marginLeft = '10px';
-        removeButton.onclick = () => removeFromCart(index); // Usar el índice para identificar el producto
+        removeButton.onclick = () => removeFromCart(index);
         listItem.appendChild(removeButton);
 
-        cartItemsList.appendChild(listItem); // Añadir a la lista
+        cartItemsList.appendChild(listItem);
     });
 
-    checkoutButton.style.display = 'block'; // Mostrar botón de compra si hay productos
+    checkoutButton.style.display = 'block'; // Mostrar el botón de compra
 }
 
-// Función para eliminar un producto del carrito
+
 function removeFromCart(index) {
-    cart.splice(index, 1); // Eliminar el producto del carrito usando su índice
-    updateCart(); // Actualizar el carrito visual
+    const productInCart = cart[index];
+    const originalProduct = products.find(p => p.id === productInCart.id);
+
+    // Incrementar el stock en la lista original
+    originalProduct.stock++;
+
+    // Eliminar el producto del carrito
+    cart.splice(index, 1);
+    updateCart();
+    displayProducts(); // Reflejar el stock actualizado
 }
+
 
 // Función para manejar el registro de usuarios
 signupForm.addEventListener('submit', (e) => {
