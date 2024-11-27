@@ -232,8 +232,9 @@ loginForm.addEventListener('submit', (e) => {
         displayProducts();
         updateCart();
 
-        // Ocultar el botón de inicio de sesión
+        // Ocultar el botón de inicio de sesión y el formulario del vendedor
         document.getElementById('login-button').style.display = 'none';
+        document.getElementById('seller-auth').style.display = 'none';
     } else {
         alert('Correo o contraseña incorrectos');
     }
