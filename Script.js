@@ -275,16 +275,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
 // Base de datos de vendedores con datos fijos
 const sellerUsersDb = {
     "admin@example.com": { password: "admin123", name: "Admin" }
-}; 
+};
 let isSeller = false; // Estado para determinar si es un vendedor
 
 const sellerAuthDiv = document.getElementById('seller-auth');
 const adminPanel = document.getElementById('admin-panel');
 const addProductForm = document.getElementById('add-product-form');
 const productListDiv = document.getElementById('product-list');
+
+// Elementos que se ocultarán al iniciar sesión como vendedor
+const loginButton = document.getElementById('login-button');
+const userAuthDiv = document.getElementById('auth');
+const cartDiv = document.getElementById('cart');
 
 // Manejar el inicio de sesión del vendedor
 document.getElementById('seller-login-form').addEventListener('submit', (e) => {
@@ -296,7 +303,14 @@ document.getElementById('seller-login-form').addEventListener('submit', (e) => {
     if (seller && seller.password === password) {
         isSeller = true;
         alert(`Bienvenido, ${seller.name}`);
-        sellerAuthDiv.style.display = 'none';
+        
+        // Ocultar elementos no relevantes para el vendedor
+        sellerAuthDiv.style.display = 'none'; // Ocultar formulario de inicio de sesión de vendedores
+        loginButton.style.display = 'none'; // Ocultar botón de inicio de sesión del header
+        userAuthDiv.style.display = 'none'; // Ocultar formulario de inicio de sesión de compradores
+        cartDiv.style.display = 'none'; // Ocultar el carrito
+
+        // Mostrar el panel de administración
         adminPanel.style.display = 'block';
         displayAdminProducts();
     } else {
