@@ -95,13 +95,30 @@ function displayProducts() {
             <p>Stock disponible: ${product.stock}</p>
         `;
 
-        // Crear el carrousel
+        // Crear el carrusel
         const carouselDiv = document.createElement('div');
         carouselDiv.classList.add('carousel');
+        
+        // Crear una imagen inicial
         const imgElement = document.createElement('img');
         imgElement.src = product.images[0];
         imgElement.alt = `${product.name} - Imagen principal`;
         carouselDiv.appendChild(imgElement);
+
+        // Crear botones de navegación del carrusel
+        const prevButton = document.createElement('button');
+        prevButton.classList.add('carousel-button');
+        prevButton.textContent = '<';
+        prevButton.onclick = () => navigateCarousel(product.images, imgElement, -1);
+
+        const nextButton = document.createElement('button');
+        nextButton.classList.add('carousel-button');
+        nextButton.textContent = '>';
+        nextButton.onclick = () => navigateCarousel(product.images, imgElement, 1);
+
+        // Agregar botones al carrusel
+        carouselDiv.appendChild(prevButton);
+        carouselDiv.appendChild(nextButton);
 
         productDiv.appendChild(carouselDiv);
 
@@ -115,6 +132,14 @@ function displayProducts() {
         productsDiv.appendChild(productDiv);
     });
 }
+
+// Función para manejar la navegación del carrusel
+function navigateCarousel(images, imgElement, direction) {
+    const currentIndex = images.indexOf(imgElement.src);
+    const newIndex = (currentIndex + direction + images.length) % images.length;
+    imgElement.src = images[newIndex];
+}
+
 
 
 
