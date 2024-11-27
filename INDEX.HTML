@@ -30,12 +30,21 @@
         <form id="seller-login-form">
             <input type="email" id="seller-login-email" placeholder="Correo electrónico" required>
             <input type="password" id="seller-login-password" placeholder="Contraseña" required>
-            <button type="submit">Iniciar sesión como vendedor</button>
+            <button type="submit">Iniciar sesión </button>
         </form>
     
-        </div>    
+        <form id="seller-signup-form" style="display:none;">
+            <h3>Registrar nuevo vendedor</h3>
+            <input type="text" id="seller-signup-name" placeholder="Nombre" required>
+            <input type="email" id="seller-signup-email" placeholder="Correo electrónico" required>
+            <input type="password" id="seller-signup-password" placeholder="Contraseña" required>
+            <button type="submit">Registrar</button>
+        </form>
     
-   <!-- <div id="admin-panel" style="display: none;">
+        <button id="toggle-seller-auth" onclick="toggleSellerAuth()">¿No tienes cuenta? Regístrate</button>
+    </div>
+    
+    <div id="admin-panel" style="display: none;">
         <h2>Panel de Administración</h2>
         <form id="add-product-form">
             <input type="text" id="product-name" placeholder="Nombre del producto" required>
@@ -46,9 +55,9 @@
         </form>
         <div id="product-list"></div>
     </div>
--->
+
     <div id="auth">
-        <h2 id="auth-title">Iniciar sesión</h2>
+        <h2 id="auth-title">Iniciar sesión como comprador</h2>
         <form id="login-form">
             <input type="email" id="login-email" placeholder="Correo electrónico" required>
             <input type="password" id="login-password" placeholder="Contraseña" required>

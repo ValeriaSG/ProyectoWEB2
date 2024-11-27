@@ -231,6 +231,17 @@ footer p {
     margin: 15px 0;
 }
 
+#toggle-seller-auth {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 #toggle-seller-auth:hover {
     background-color: #333;
 }
+
+

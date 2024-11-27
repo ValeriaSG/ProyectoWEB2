@@ -65,23 +65,6 @@ const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
 const toggleAuthButton = document.getElementById('toggle-auth');
 
-/* Función para mostrar los productos
-function displayProducts() {
-    productsDiv.innerHTML = '';
-    products.forEach(product => {
-        const productDiv = document.createElement('div');
-        productDiv.classList.add('product');
-        productDiv.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover;">
-            <h3>${product.name}</h3>
-            <p>Precio: $${product.price}</p>
-            <button onclick="addToCart(${product.id})">Añadir al carrito</button>
-        `;
-        productsDiv.appendChild(productDiv);
-    });
-}
-*/
-
 function displayProducts() {
     productsDiv.innerHTML = '';
     products.forEach(product => {
@@ -139,9 +122,6 @@ function navigateCarousel(images, imgElement, direction) {
     const newIndex = (currentIndex + direction + images.length) % images.length;
     imgElement.src = images[newIndex];
 }
-
-
-
 
 function addToCart(productId) {
     if (!currentUser) {
@@ -295,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
+/* ---------Permite el acceso con credenciales unicas------
 document.addEventListener("DOMContentLoaded", () => {
     // Credenciales predefinidas para el vendedor
     const sellerEmail = "vendedor@capstyle.com";
@@ -328,10 +308,136 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+*/
 
+const sellerUsersDb = {
+    "admin@example.com": { password: "admin123", name: "Admin" }
+}; // Base de datos de vendedores
+let isSeller = false; // Estado para determinar si es un vendedor
 
+const sellerAuthDiv = document.getElementById('seller-auth');
+const adminPanel = document.getElementById('admin-panel');
+const addProductForm = document.getElementById('add-product-form');
+const productListDiv = document.getElementById('product-list');
 
+// Función para manejar el inicio de sesión del vendedor
+document.getElementById('seller-login-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('seller-email').value;
+    const password = document.getElementById('seller-password').value;
 
+    const seller = sellerUsersDb[email];
+    if (seller && seller.password === password) {
+        isSeller = true;
+        alert(`Bienvenido, ${seller.name}`);
+        sellerAuthDiv.style.display = 'none';
+        adminPanel.style.display = 'block';
+        displayAdminProducts();
+    } else {
+        alert('Correo o contraseña incorrectos para vendedor.');
+    }
+});
 
+// Función para mostrar productos en el panel de administración
+function displayAdminProducts() {
+    productListDiv.innerHTML = '';
+    products.forEach((product, index) => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('admin-product');
+        productDiv.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Precio: $${product.price}</p>
+            <p>Stock: ${product.stock}</p>
+            <button onclick="deleteProduct(${index})">Eliminar</button>
+            <button onclick="editProduct(${index})">Editar</button>
+        `;
+        productListDiv.appendChild(productDiv);
+    });
+}
 
+// Función para agregar un producto
+addProductForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('product-name').value;
+    const price = parseFloat(document.getElementById('product-price').value);
+    const stock = parseInt(document.getElementById('product-stock').value);
+    const images = document.getElementById('product-images').value.split(',');
 
+    const newProduct = { id: products.length + 1, name, price, stock, images };
+    products.push(newProduct);
+    alert('Producto agregado con éxito.');
+    displayAdminProducts();
+    displayProducts();
+});
+
+// Función para eliminar un producto
+function deleteProduct(index) {
+    products.splice(index, 1);
+    alert('Producto eliminado.');
+    displayAdminProducts();
+    displayProducts();
+}
+
+// Función para editar un producto
+function editProduct(index) {
+    const product = products[index];
+    const name = prompt('Nombre del producto:', product.name) || product.name;
+    const price = parseFloat(prompt('Precio:', product.price)) || product.price;
+    const stock = parseInt(prompt('Stock:', product.stock)) || product.stock;
+    const images = prompt('URLs de imágenes (separadas por comas):', product.images.join(',')) || product.images;
+
+    products[index] = { ...product, name, price, stock, images: images.split(',') };
+    alert('Producto modificado con éxito.');
+    displayAdminProducts();
+    displayProducts();
+}
+const sellerSignupForm = document.getElementById('seller-signup-form');
+const sellerLoginForm = document.getElementById('seller-login-form');
+const toggleSellerAuthButton = document.getElementById('toggle-seller-auth');
+const sellerAuthTitle = document.getElementById('seller-auth-title');
+
+// Alternar entre login y signup para vendedores
+function toggleSellerAuth() {
+    const isLogin = sellerLoginForm.style.display !== 'none';
+    sellerLoginForm.style.display = isLogin ? 'none' : 'block';
+    sellerSignupForm.style.display = isLogin ? 'block' : 'none';
+    sellerAuthTitle.textContent = isLogin ? 'Registrar nuevo vendedor' : 'Iniciar sesión como vendedor';
+    toggleSellerAuthButton.textContent = isLogin
+        ? '¿Ya tienes cuenta? Inicia sesión'
+        : '¿No tienes cuenta? Regístrate';
+}
+
+// Registrar un nuevo vendedor
+sellerSignupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('seller-signup-name').value;
+    const email = document.getElementById('seller-signup-email').value;
+    const password = document.getElementById('seller-signup-password').value;
+
+    if (sellerUsersDb[email]) {
+        alert('Este correo ya está registrado como vendedor.');
+        return;
+    }
+
+    sellerUsersDb[email] = { name, password };
+    alert('Cuenta de vendedor creada con éxito.');
+    toggleSellerAuth(); // Alternar a login después del registro
+});
+
+// Manejar el inicio de sesión de vendedores
+sellerLoginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('seller-login-email').value;
+    const password = document.getElementById('seller-login-password').value;
+
+    const seller = sellerUsersDb[email];
+    if (seller && seller.password === password) {
+        isSeller = true;
+        alert(`Bienvenido, ${seller.name}`);
+        sellerAuthDiv.style.display = 'none';
+        adminPanel.style.display = 'block';
+        displayAdminProducts();
+    } else {
+        alert('Correo o contraseña incorrectos para vendedor.');
+    }
+});
