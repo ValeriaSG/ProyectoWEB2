@@ -168,3 +168,10 @@ footer {
 footer p {
     margin: 5px 0;
 }
+
+
+.cart-icon {
+    margin-right: 5px;
+    font-size: 1.0em;
+    vertical-align: middle;
+}
