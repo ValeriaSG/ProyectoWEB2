@@ -130,6 +130,8 @@ function addToCart(productId) {
         return;
     }
 
+
+    //----------------------Esto nos da nuestro stock de la tienda--------------------
     // Buscar el producto en la lista original
     const product = products.find(p => p.id === productId);
 
@@ -196,7 +198,7 @@ function removeFromCart(index) {
     displayProducts(); // Reflejar el stock actualizado
 }
 
-
+//----------Esto controla el inicio de sesión del comprador----------------
 // Función para manejar el registro de usuarios
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -277,6 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+//---------------Parte del inicio de sesión del vendedor-----------------
 
 // Base de datos de vendedores con datos fijos
 const sellerUsersDb = {
