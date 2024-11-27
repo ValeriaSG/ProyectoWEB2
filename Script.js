@@ -275,44 +275,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-/* ---------Permite el acceso con credenciales unicas------
-document.addEventListener("DOMContentLoaded", () => {
-    // Credenciales predefinidas para el vendedor
-    const sellerEmail = "vendedor@capstyle.com";
-    const sellerPassword = "contraseñaSegura";
-
-    // Elementos del DOM
-    const sellerLoginForm = document.getElementById("seller-login-form");
-    const sellerLoginEmail = document.getElementById("seller-login-email");
-    const sellerLoginPassword = document.getElementById("seller-login-password");
-    const sellerAuthTitle = document.getElementById("seller-auth-title");
-    const adminPanel = document.getElementById("admin-panel");
-    const sellerAuth = document.getElementById("seller-auth");
-
-    // Manejador del formulario de inicio de sesión
-    sellerLoginForm.addEventListener("submit", (event) => {
-        event.preventDefault(); // Evita que la página se recargue
-
-        const email = sellerLoginEmail.value.trim();
-        const password = sellerLoginPassword.value.trim();
-
-        // Validar credenciales
-        if (email === sellerEmail && password === sellerPassword) {
-            // Credenciales correctas
-            alert("Inicio de sesión como vendedor exitoso.");
-            sellerAuth.style.display = "none"; // Ocultar formulario de inicio de sesión
-            adminPanel.style.display = "block"; // Mostrar panel de administración
-        } else {
-            // Credenciales incorrectas
-            alert("Correo o contraseña incorrectos. Intenta nuevamente.");
-        }
-    });
-});
-*/
-
+// Base de datos de vendedores con datos fijos
 const sellerUsersDb = {
     "admin@example.com": { password: "admin123", name: "Admin" }
-}; // Base de datos de vendedores
+}; 
 let isSeller = false; // Estado para determinar si es un vendedor
 
 const sellerAuthDiv = document.getElementById('seller-auth');
@@ -320,11 +286,11 @@ const adminPanel = document.getElementById('admin-panel');
 const addProductForm = document.getElementById('add-product-form');
 const productListDiv = document.getElementById('product-list');
 
-// Función para manejar el inicio de sesión del vendedor
+// Manejar el inicio de sesión del vendedor
 document.getElementById('seller-login-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById('seller-email').value;
-    const password = document.getElementById('seller-password').value;
+    const email = document.getElementById('seller-login-email').value;
+    const password = document.getElementById('seller-login-password').value;
 
     const seller = sellerUsersDb[email];
     if (seller && seller.password === password) {
@@ -338,7 +304,7 @@ document.getElementById('seller-login-form').addEventListener('submit', (e) => {
     }
 });
 
-// Función para mostrar productos en el panel de administración
+// Mostrar productos en el panel de administración
 function displayAdminProducts() {
     productListDiv.innerHTML = '';
     products.forEach((product, index) => {
@@ -355,7 +321,7 @@ function displayAdminProducts() {
     });
 }
 
-// Función para agregar un producto
+// Agregar un producto
 addProductForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('product-name').value;
@@ -370,7 +336,7 @@ addProductForm.addEventListener('submit', (e) => {
     displayProducts();
 });
 
-// Función para eliminar un producto
+// Eliminar un producto
 function deleteProduct(index) {
     products.splice(index, 1);
     alert('Producto eliminado.');
@@ -378,7 +344,7 @@ function deleteProduct(index) {
     displayProducts();
 }
 
-// Función para editar un producto
+// Editar un producto
 function editProduct(index) {
     const product = products[index];
     const name = prompt('Nombre del producto:', product.name) || product.name;
@@ -391,53 +357,3 @@ function editProduct(index) {
     displayAdminProducts();
     displayProducts();
 }
-const sellerSignupForm = document.getElementById('seller-signup-form');
-const sellerLoginForm = document.getElementById('seller-login-form');
-const toggleSellerAuthButton = document.getElementById('toggle-seller-auth');
-const sellerAuthTitle = document.getElementById('seller-auth-title');
-
-// Alternar entre login y signup para vendedores
-function toggleSellerAuth() {
-    const isLogin = sellerLoginForm.style.display !== 'none';
-    sellerLoginForm.style.display = isLogin ? 'none' : 'block';
-    sellerSignupForm.style.display = isLogin ? 'block' : 'none';
-    sellerAuthTitle.textContent = isLogin ? 'Registrar nuevo vendedor' : 'Iniciar sesión como vendedor';
-    toggleSellerAuthButton.textContent = isLogin
-        ? '¿Ya tienes cuenta? Inicia sesión'
-        : '¿No tienes cuenta? Regístrate';
-}
-
-// Registrar un nuevo vendedor
-sellerSignupForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('seller-signup-name').value;
-    const email = document.getElementById('seller-signup-email').value;
-    const password = document.getElementById('seller-signup-password').value;
-
-    if (sellerUsersDb[email]) {
-        alert('Este correo ya está registrado como vendedor.');
-        return;
-    }
-
-    sellerUsersDb[email] = { name, password };
-    alert('Cuenta de vendedor creada con éxito.');
-    toggleSellerAuth(); // Alternar a login después del registro
-});
-
-// Manejar el inicio de sesión de vendedores
-sellerLoginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('seller-login-email').value;
-    const password = document.getElementById('seller-login-password').value;
-
-    const seller = sellerUsersDb[email];
-    if (seller && seller.password === password) {
-        isSeller = true;
-        alert(`Bienvenido, ${seller.name}`);
-        sellerAuthDiv.style.display = 'none';
-        adminPanel.style.display = 'block';
-        displayAdminProducts();
-    } else {
-        alert('Correo o contraseña incorrectos para vendedor.');
-    }
-});
