@@ -199,32 +199,92 @@ function removeFromCart(index) {
 }
 
 //----------Esto controla el inicio de sesión del comprador----------------
+// Función para obtener todos los usuarios desde el servidor JSON
+async function fetchUsers() {
+    try {
+        console.log("Obteniendo usuarios desde JSON Server...");
+        const response = await fetch('http://localhost:3000/users');
+        if (!response.ok) {
+            throw new Error(`Error al obtener usuarios: ${response.statusText}`);
+        }
+        const users = await response.json();
+        console.log("Usuarios obtenidos:", users); // Debug
+        return users;
+    } catch (error) {
+        console.error("Error en la solicitud GET:", error);
+        return [];
+    }
+}
+
+// Función para guardar un nuevo usuario en el servidor JSON
+async function saveUser(newUser) {
+    try {
+        console.log("Intentando guardar usuario en JSON Server:", newUser); // Debug
+        const response = await fetch('http://localhost:3000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newUser),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error al guardar usuario: ${response.statusText}`);
+        }
+
+        console.log("Usuario guardado exitosamente en JSON Server.");
+    } catch (error) {
+        console.error("Error en la solicitud POST:", error);
+        alert("No se pudo registrar el usuario. Intenta más tarde.");
+    }
+}
+
 // Función para manejar el registro de usuarios
-signupForm.addEventListener('submit', (e) => {
+signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    console.log("Iniciando proceso de registro..."); // Debug
+
     const name = document.getElementById('signup-name').value;
     const lastname = document.getElementById('signup-lastname').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
 
-    if (usersDb[email]) {
-        alert('Este correo ya está registrado.');
+    // Validación básica de campos
+    if (!name || !lastname || !email || !password) {
+        alert("Por favor, completa todos los campos.");
         return;
     }
 
-    usersDb[email] = { name, lastname, email, password };
-    alert('Cuenta creada con éxito!');
-    toggleAuth(); // Volver al login
+    // Verificar si el usuario ya existe
+    const users = await fetchUsers();
+    const existingUser = users.find(user => user.email === email);
+
+    if (existingUser) {
+        alert("Este correo ya está registrado.");
+        return;
+    }
+
+    // Crear y guardar el nuevo usuario
+    const newUser = { name, lastname, email, password };
+    await saveUser(newUser);
+
+    alert("Cuenta creada con éxito!");
+    toggleAuth(); // Cambiar al formulario de inicio de sesión
 });
 
+
 // Función para manejar el inicio de sesión
-loginForm.addEventListener('submit', (e) => {
+loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    console.log("Procesando inicio de sesión..."); // Debug
+
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
-    const user = usersDb[email];
-    if (user && user.password === password) {
+    const users = await fetchUsers();
+    const user = users.find(user => user.email === email && user.password === password);
+
+    if (user) {
         currentUser = user;
         userNameSpan.textContent = `Hola, ${user.name}`;
         logoutButton.style.display = 'block';
@@ -239,7 +299,6 @@ loginForm.addEventListener('submit', (e) => {
         alert('Correo o contraseña incorrectos');
     }
 });
-
 
 // Función para cerrar sesión
 logoutButton.addEventListener('click', () => {
@@ -265,7 +324,6 @@ function toggleAuth() {
 window.onload = () => {
     displayProducts();
 };
-
 
 document.addEventListener('DOMContentLoaded', () => {
     const authDiv = document.getElementById('auth');
