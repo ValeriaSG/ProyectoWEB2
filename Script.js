@@ -45,7 +45,7 @@ const products = [
         images:['https://www.newera.mx/cdn/shop/products/11591125_59FIFTY_MLBBASICFITTED_NEYYAN_GRA_3QR.png?v=1688498128',
                     'https://www.newera.mx/cdn/shop/products/11591125_59FIFTY_MLBBASICFITTED_NEYYAN_GRA_F.png?v=1688498128',
                     'https://www.newera.mx/cdn/shop/products/11591125_59FIFTY_MLBBASICFITTED_NEYYAN_GRA_3QL.png?v=1688498128',]},
-    { id: 8, name: 'New York Yankees', price: 999, stock: 10, 
+    { id: 12, name: 'New York Yankees', price: 999, stock: 10, 
         images:['https://www.newera.mx/cdn/shop/files/60358061_2.png?v=1704412507',
                     'https://www.newera.mx/cdn/shop/files/60358061_1.png?v=1704412507',
                     'https://www.newera.mx/cdn/shop/files/60358061_3QL.png?v=1704412507'] },
@@ -462,3 +462,89 @@ function editProduct(index) {
     displayAdminProducts();
     displayProducts();
 }
+//----------------Esto maneja el LocalStorage del carrito----------------------------------
+// Función para cargar el carrito de un usuario
+function loadCart() {
+    if (!currentUser) return;
+    const savedCart = localStorage.getItem(`cart_${currentUser.email}`);
+    cart = savedCart ? JSON.parse(savedCart) : [];
+    updateCart();
+}
+
+// Función para guardar el carrito en localStorage
+function saveCart() {
+    if (!currentUser) return;
+    localStorage.setItem(`cart_${currentUser.email}`, JSON.stringify(cart));
+}
+
+// Modificar la función `addToCart` para guardar el carrito
+function addToCart(productId) {
+    if (!currentUser) {
+        alert('¡Debes iniciar sesión para agregar productos al carrito!');
+        return;
+    }
+
+    const product = products.find(p => p.id === productId);
+    if (product.stock > 0) {
+        product.stock--;
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+        });
+        saveCart(); // Guardar el carrito actualizado
+        updateCart();
+        displayProducts();
+        alert(`${product.name} añadido al carrito.`);
+    } else {
+        alert(`Lo sentimos, el producto "${product.name}" está agotado.`);
+    }
+}
+
+// Modificar la función `removeFromCart` para guardar el carrito
+function removeFromCart(index) {
+    const productInCart = cart[index];
+    const originalProduct = products.find(p => p.id === productInCart.id);
+
+    originalProduct.stock++;
+    cart.splice(index, 1);
+    saveCart(); // Guardar el carrito actualizado
+    updateCart();
+    displayProducts();
+}
+
+// Modificar el manejo del inicio de sesión para cargar el carrito
+loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    const users = await fetchUsers();
+    const user = users.find(user => user.email === email && user.password === password);
+
+    if (user) {
+        currentUser = user;
+        userNameSpan.textContent = `Hola, ${user.name}`;
+        logoutButton.style.display = 'block';
+        authDiv.style.display = 'none';
+        displayProducts();
+        loadCart(); // Cargar el carrito del usuario
+        document.getElementById('login-button').style.display = 'none';
+        document.getElementById('seller-auth').style.display = 'none';
+    } else {
+        alert('Correo o contraseña incorrectos');
+    }
+});
+
+// Modificar el manejo del cierre de sesión para limpiar el carrito
+logoutButton.addEventListener('click', () => {
+    currentUser = null;
+    cart = [];
+    updateCart();
+    localStorage.removeItem('cart'); // Limpiar el carrito temporal
+    userNameSpan.textContent = '';
+    logoutButton.style.display = 'none';
+    authDiv.style.display = 'block';
+    displayProducts();
+    document.getElementById('login-button').style.display = 'block';
+});
