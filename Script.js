@@ -413,16 +413,32 @@ function displayAdminProducts() {
 // Agregar un producto
 addProductForm.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    // Obtener valores del formulario
     const name = document.getElementById('product-name').value;
     const price = parseFloat(document.getElementById('product-price').value);
     const stock = parseInt(document.getElementById('product-stock').value);
     const images = document.getElementById('product-images').value.split(',');
 
+    // Validación básica de campos
+    if (!name || isNaN(price) || isNaN(stock) || images.length === 0) {
+        alert("Por favor, completa todos los campos correctamente.");
+        return;
+    }
+
+    // Crear nuevo producto
     const newProduct = { id: products.length + 1, name, price, stock, images };
     products.push(newProduct);
+
+    // Mensaje de éxito
     alert('Producto agregado con éxito.');
+
+    // Actualizar la vista
     displayAdminProducts();
     displayProducts();
+
+    // Limpiar los campos del formulario
+    addProductForm.reset();
 });
 
 // Eliminar un producto
