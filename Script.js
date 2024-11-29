@@ -1,5 +1,5 @@
 const usersDb = {}; // Base de datos de usuarios (en realidad debería ser un JSON o base de datos real).
-const products = [
+/*const products = [
     { id: 1, name: 'Boston Red Sox', price: 999, stock: 10, 
       images:[ 'https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_3QR.png?v=1698727230',
                     'https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_F.png?v=1698727230',
@@ -45,13 +45,13 @@ const products = [
         images:['https://www.newera.mx/cdn/shop/products/11591125_59FIFTY_MLBBASICFITTED_NEYYAN_GRA_3QR.png?v=1688498128',
                     'https://www.newera.mx/cdn/shop/products/11591125_59FIFTY_MLBBASICFITTED_NEYYAN_GRA_F.png?v=1688498128',
                     'https://www.newera.mx/cdn/shop/products/11591125_59FIFTY_MLBBASICFITTED_NEYYAN_GRA_3QL.png?v=1688498128',]},
-    { id: 12, name: 'New York Yankees', price: 999, stock: 10, 
+    { id: 8, name: 'New York Yankees', price: 999, stock: 10, 
         images:['https://www.newera.mx/cdn/shop/files/60358061_2.png?v=1704412507',
                     'https://www.newera.mx/cdn/shop/files/60358061_1.png?v=1704412507',
                     'https://www.newera.mx/cdn/shop/files/60358061_3QL.png?v=1704412507'] },
     
 ];
-
+*/
 let currentUser = null;
 let cart = [];
 
@@ -357,6 +357,31 @@ const userAuthDiv = document.getElementById('auth');
 const cartDiv = document.getElementById('cart');
 const logoutButon = document.getElementById('logout-button'); // Botón de cerrar sesión
 
+// Obtener productos desde localStorage o inicializar una lista vacía
+let products = JSON.parse(localStorage.getItem('products')) || [];
+
+// Guardar productos en localStorage
+function saveProductsToLocalStorage() {
+    localStorage.setItem('products', JSON.stringify(products));
+}
+
+// Mostrar productos en el panel de administración
+function displayAdminProducts() {
+    productListDiv.innerHTML = '';
+    products.forEach((product, index) => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('admin-product');
+        productDiv.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Precio: $${product.price}</p>
+            <p>Stock: ${product.stock}</p>
+            <button onclick="deleteProduct(${index})">Eliminar</button>
+            <button onclick="editProduct(${index})">Editar</button>
+        `;
+        productListDiv.appendChild(productDiv);
+    });
+}
+
 // Manejar el inicio de sesión del vendedor
 document.getElementById('seller-login-form').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -393,23 +418,6 @@ logoutButton.addEventListener('click', () => {
     window.location.reload();
 });
 
-// Mostrar productos en el panel de administración
-function displayAdminProducts() {
-    productListDiv.innerHTML = '';
-    products.forEach((product, index) => {
-        const productDiv = document.createElement('div');
-        productDiv.classList.add('admin-product');
-        productDiv.innerHTML = `
-            <h3>${product.name}</h3>
-            <p>Precio: $${product.price}</p>
-            <p>Stock: ${product.stock}</p>
-            <button onclick="deleteProduct(${index})">Eliminar</button>
-            <button onclick="editProduct(${index})">Editar</button>
-        `;
-        productListDiv.appendChild(productDiv);
-    });
-}
-
 // Agregar un producto
 addProductForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -430,23 +438,23 @@ addProductForm.addEventListener('submit', (e) => {
     const newProduct = { id: products.length + 1, name, price, stock, images };
     products.push(newProduct);
 
+    // Guardar en localStorage
+    saveProductsToLocalStorage();
+
     // Mensaje de éxito
     alert('Producto agregado con éxito.');
 
     // Actualizar la vista
     displayAdminProducts();
-    displayProducts();
-
-    // Limpiar los campos del formulario
     addProductForm.reset();
 });
 
 // Eliminar un producto
 function deleteProduct(index) {
     products.splice(index, 1);
+    saveProductsToLocalStorage();
     alert('Producto eliminado.');
     displayAdminProducts();
-    displayProducts();
 }
 
 // Editar un producto
@@ -458,11 +466,15 @@ function editProduct(index) {
     const images = prompt('URLs de imágenes (separadas por comas):', product.images.join(',')) || product.images;
 
     products[index] = { ...product, name, price, stock, images: images.split(',') };
+    saveProductsToLocalStorage();
     alert('Producto modificado con éxito.');
     displayAdminProducts();
-    displayProducts();
 }
-//----------------Esto maneja el LocalStorage del carrito----------------------------------
+
+// Inicializar vista con productos almacenados
+displayAdminProducts();
+
+//-----------------------------CARRITO-LOCALSTORAGE--------------------------
 // Función para cargar el carrito de un usuario
 function loadCart() {
     if (!currentUser) return;
