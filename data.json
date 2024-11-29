@@ -212,6 +212,34 @@
         }
       ],
       "date": "2024-11-29T02:20:00.586Z"
+    },
+    {
+      "id": "07e8",
+      "user": "lus",
+      "email": "luu@gmail.com",
+      "products": [
+        {
+          "id": 1732865175258,
+          "name": "Chicago White Sox",
+          "price": 999
+        },
+        {
+          "id": 1732865354056,
+          "name": "All Over",
+          "price": 1199
+        },
+        {
+          "id": 1732865401248,
+          "name": "Angeles Dodgers",
+          "price": 999
+        },
+        {
+          "id": 1732864914526,
+          "name": "Boston Red Sox",
+          "price": 999
+        }
+      ],
+      "date": "2024-11-29T07:43:45.696Z"
     }
   ]
 }
