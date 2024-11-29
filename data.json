@@ -1,28 +1,107 @@
 {
   "users": [
     {
-      "id": "910d",
-      "name": "ann",
-      "lastname": "gar",
-      "email": "an@mail.com",
+      "id": "8576",
+      "name": "Luis",
+      "lastname": "A",
+      "email": "a@gmail.com",
+      "password": "12"
+    },
+    {
+      "id": "2a59",
+      "name": "toño",
+      "lastname": "ville",
+      "email": "ola@gmail.com",
+      "password": "ville"
+    },
+    {
+      "id": "0590",
+      "name": "lus",
+      "lastname": "as",
+      "email": "luu@gmail.com",
       "password": "123"
     }
   ],
   "products": [
     {
-      "id": 1,
-      "name": "Producto 1",
-      "price": 10
+      "id": 1732843808262,
+      "name": "New York",
+      "price": 1000,
+      "stock": 12,
+      "images": [
+        "https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_3QR.png?v=1698727230",
+        " https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_F.png?v=1698727230",
+        " https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_3QL.png?v=1698727230 "
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "id": "13c4",
+      "user": "toño",
+      "email": "ola@gmail.com",
+      "products": [
+        {
+          "id": 1,
+          "name": "Boston Red Sox",
+          "price": 999
+        }
+      ],
+      "date": "2024-11-29T01:01:05.919Z"
     },
     {
-      "id": 2,
-      "name": "Producto 2",
-      "price": 20
+      "id": "807e",
+      "user": "toño",
+      "email": "ola@gmail.com",
+      "products": [
+        {
+          "id": 1,
+          "name": "Boston Red Sox",
+          "price": 999
+        },
+        {
+          "id": 2,
+          "name": "New York",
+          "price": 999
+        }
+      ],
+      "date": "2024-11-29T01:06:22.150Z"
     },
     {
-      "id": 3,
-      "name": "Producto 3",
-      "price": 30
+      "id": "c03b",
+      "user": "toño",
+      "email": "ola@gmail.com",
+      "products": [
+        {
+          "id": 2,
+          "name": "New York",
+          "price": 999
+        }
+      ],
+      "date": "2024-11-29T01:07:11.142Z"
+    },
+    {
+      "id": "0b7e",
+      "user": "toño",
+      "email": "ola@gmail.com",
+      "products": [
+        {
+          "id": 1,
+          "name": "Boston Red Sox",
+          "price": 999
+        },
+        {
+          "id": 1,
+          "name": "Boston Red Sox",
+          "price": 999
+        },
+        {
+          "id": 1,
+          "name": "Boston Red Sox",
+          "price": 999
+        }
+      ],
+      "date": "2024-11-29T01:08:51.814Z"
     }
   ]
 }

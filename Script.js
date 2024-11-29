@@ -418,8 +418,8 @@ logoutButton.addEventListener('click', () => {
     window.location.reload();
 });
 
-// Agregar un producto
-addProductForm.addEventListener('submit', (e) => {
+// Función para agregar producto al servidor JSON y actualizar la interfaz
+async function addProduct(e) {
     e.preventDefault();
 
     // Obtener valores del formulario
@@ -434,45 +434,86 @@ addProductForm.addEventListener('submit', (e) => {
         return;
     }
 
-    // Crear nuevo producto
-    const newProduct = { id: products.length + 1, name, price, stock, images };
-    products.push(newProduct);
+    // Crear objeto de producto
+    const newProduct = {
+        id: Date.now(), // Generar un ID único basado en la marca de tiempo
+        name,
+        price,
+        stock,
+        images,
+    };
 
-    // Guardar en localStorage
-    saveProductsToLocalStorage();
+    try {
+        // Guardar el producto en el servidor JSON
+        const response = await fetch('http://localhost:3000/products', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newProduct),
+        });
 
-    // Mensaje de éxito
-    alert('Producto agregado con éxito.');
+        if (!response.ok) {
+            throw new Error(`Error al guardar producto: ${response.statusText}`);
+        }
 
-    // Actualizar la vista
-    displayAdminProducts();
-    addProductForm.reset();
-});
+        // Mensaje de éxito
+        alert('Producto agregado con éxito.');
 
-// Eliminar un producto
-function deleteProduct(index) {
-    products.splice(index, 1);
-    saveProductsToLocalStorage();
-    alert('Producto eliminado.');
-    displayAdminProducts();
+        // Actualizar la lista de productos localmente
+        products.push(newProduct);
+        saveProductsToLocalStorage();
+        displayProducts(); // Actualizar productos visibles para compradores
+        displayAdminProducts(); // Actualizar lista en el panel de administración
+        addProductForm.reset(); // Limpiar el formulario
+    } catch (error) {
+        console.error('Error al agregar producto:', error);
+        alert('Hubo un problema al agregar el producto. Inténtalo de nuevo.');
+    }
 }
 
-// Editar un producto
-function editProduct(index) {
-    const product = products[index];
-    const name = prompt('Nombre del producto:', product.name) || product.name;
-    const price = parseFloat(prompt('Precio:', product.price)) || product.price;
-    const stock = parseInt(prompt('Stock:', product.stock)) || product.stock;
-    const images = prompt('URLs de imágenes (separadas por comas):', product.images.join(',')) || product.images;
+// Vincular la función al botón "Agregar Producto"
+addProductForm.addEventListener('submit', addProduct);
 
-    products[index] = { ...product, name, price, stock, images: images.split(',') };
-    saveProductsToLocalStorage();
-    alert('Producto modificado con éxito.');
-    displayAdminProducts();
+// Función para mostrar productos en la página principal (compradores)
+function displayProducts() {
+    const productsContainer = document.getElementById('products');
+    productsContainer.innerHTML = ''; // Limpiar lista existente
+
+    products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product-item');
+        productDiv.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Precio: $${product.price}</p>
+            <p>Stock disponible: ${product.stock}</p>
+            <img src="${product.images[0]}" alt="${product.name}" style="max-width: 100px; height: auto;">
+            <button onclick="addToCart(${product.id})">Agregar al carrito</button>
+        `;
+        productsContainer.appendChild(productDiv);
+    });
 }
 
-// Inicializar vista con productos almacenados
-displayAdminProducts();
+// Función para cargar productos desde el servidor JSON al inicio
+async function loadProducts() {
+    try {
+        const response = await fetch('http://localhost:3000/products');
+        if (!response.ok) {
+            throw new Error(`Error al obtener productos: ${response.statusText}`);
+        }
+
+        products = await response.json();
+        saveProductsToLocalStorage(); // Actualizar localStorage
+        displayProducts(); // Mostrar productos en la página principal
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+    }
+}
+
+// Llamar a `loadProducts` cuando cargue la página
+window.onload = () => {
+    loadProducts();
+};
 
 //-----------------------------CARRITO-LOCALSTORAGE--------------------------
 // Función para cargar el carrito de un usuario
@@ -559,4 +600,136 @@ logoutButton.addEventListener('click', () => {
     authDiv.style.display = 'block';
     displayProducts();
     document.getElementById('login-button').style.display = 'block';
+});
+// ---------------- JSON para poder finalizar compra con el boton ----------------
+// Función para finalizar la compra
+async function finalizePurchase() {
+    if (!currentUser) {
+        alert('Debes iniciar sesión para finalizar la compra.');
+        return;
+    }
+
+    if (cart.length === 0) {
+        alert('Tu carrito está vacío.');
+        return;
+    }
+
+    // Crear el movimiento de transacción
+    const transaction = {
+        user: currentUser.name,
+        email: currentUser.email,
+        products: cart,
+        date: new Date().toISOString(),
+    };
+
+    try {
+        // Guardar la transacción en el servidor JSON
+        const response = await fetch('http://localhost:3000/transactions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(transaction),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error al guardar transacción: ${response.statusText}`);
+        }
+
+        // Mensaje de éxito
+        alert('Movimiento exitoso: Tu compra ha sido registrada.');
+
+        // Limpiar el carrito
+        cart = [];
+        saveCart();
+        updateCart();
+    } catch (error) {
+        console.error('Error al registrar la transacción:', error);
+        alert('Ocurrió un error al finalizar tu compra. Inténtalo de nuevo.');
+    }
+}
+
+// Escuchar el evento de clic en el botón "Finalizar compra"
+document.getElementById('checkout-button').addEventListener('click', finalizePurchase);
+
+// Función para cargar las transacciones en el panel del vendedor
+async function loadTransactions() {
+    if (!isSeller) return;
+
+    try {
+        const response = await fetch('http://localhost:3000/transactions');
+        if (!response.ok) {
+            throw new Error(`Error al obtener transacciones: ${response.statusText}`);
+        }
+
+        const transactions = await response.json();
+        const transactionListDiv = document.getElementById('transaction-list');
+        transactionListDiv.innerHTML = ''; // Limpiar la lista
+
+        // Mostrar transacciones
+        transactions.forEach(transaction => {
+            const transactionDiv = document.createElement('div');
+            transactionDiv.classList.add('transaction-item');
+            transactionDiv.innerHTML = `
+                <h4>Transacción de ${transaction.user} (${transaction.email})</h4>
+                <p>Fecha: ${new Date(transaction.date).toLocaleString()}</p>
+                <ul>
+                    ${transaction.products.map(product => `
+                        <li>${product.name} - $${product.price}</li>
+                    `).join('')}
+                </ul>
+            `;
+            transactionListDiv.appendChild(transactionDiv);
+        });
+    } catch (error) {
+        console.error('Error al cargar transacciones:', error);
+    }
+}
+
+// Llama a `loadTransactions` cuando el vendedor inicia sesión
+document.getElementById('seller-login-form').addEventListener('submit', (e) => {
+    // Después de la autenticación exitosa del vendedor
+    loadTransactions();
+});
+
+//----------Se ocultan elementos y se muestran otros para el vendedor-----
+// Mostrar el contenedor de transacciones al iniciar sesión como vendedor
+document.getElementById('seller-login-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('seller-login-email').value;
+    const password = document.getElementById('seller-login-password').value;
+
+    const seller = sellerUsersDb[email];
+    if (seller && seller.password === password) {
+        isSeller = true;
+        alert(`Bienvenido, ${seller.name}`);
+
+        // Mostrar el panel de administración y las transacciones
+        sellerAuthDiv.style.display = 'none';
+        loginButton.style.display = 'none';
+        userAuthDiv.style.display = 'none';
+        cartDiv.style.display = 'none';
+
+        adminPanel.style.display = 'block';
+        logoutButton.style.display = 'block';
+        document.getElementById('transaction-list').style.display = 'block'; // Mostrar transacciones
+
+        displayAdminProducts();
+        loadTransactions(); // Cargar las transacciones
+    } else {
+        alert('Correo o contraseña incorrectos para vendedor.');
+    }
+});
+
+// Ocultar el contenedor de transacciones al cerrar sesión como vendedor
+logoutButton.addEventListener('click', () => {
+    isSeller = false;
+    alert('Sesión cerrada correctamente.');
+
+    // Ocultar el panel de administración y las transacciones
+    adminPanel.style.display = 'none';
+    document.getElementById('transaction-list').style.display = 'none'; // Ocultar transacciones
+
+    // Recargar la página para restablecer el estado inicial
+    window.location.reload();
 });
