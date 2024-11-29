@@ -742,3 +742,123 @@ logoutButton.addEventListener('click', () => {
     // Recargar la página para restablecer el estado inicial
     window.location.reload();
 });
+//----------------------------ELIMINAR Y EDITAR-----------------------------------
+// Función para manejar la eliminación de productos
+
+// Guardar productos en localStorage
+function saveProductsToLocalStorage() {
+    localStorage.setItem('products', JSON.stringify(products));
+}
+// Mostrar productos en el panel de administración
+function displayAdminProducts() {
+    const productListDiv = document.getElementById('product-list');
+    productListDiv.innerHTML = ''; // Limpiar productos existentes
+
+    products.forEach((product, index) => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('admin-product');
+        
+        // Mostrar nombre, precio, stock y la imagen del producto
+        productDiv.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Precio: $${product.price}</p>
+            <p>Stock disponible: ${product.stock}</p>
+            <img src="${product.images[0]}" alt="${product.name}" style="width: 150px; height: auto; border-radius: 8px;">
+            <div class="button-container">
+                <button onclick="deleteProduct(${index})">Eliminar</button>
+                <button onclick="editProduct(${index})">Editar</button>
+            </div>
+        `;
+        productListDiv.appendChild(productDiv);
+    });
+}
+
+
+// Eliminar un producto
+function deleteProduct(index) {
+    // Eliminar el producto del array
+    products.splice(index, 1);
+
+    // Guardar la nueva lista en localStorage
+    saveProductsToLocalStorage();
+    displayAdminProducts(); // Volver a mostrar la lista actualizada
+}
+// Editar un producto
+function editProduct(index) {
+    const product = products[index]; // Obtener el producto
+
+    // Solicitar nuevos valores al usuario
+    const newName = prompt('Nuevo nombre del producto:', product.name) || product.name;
+    const newPrice = parseFloat(prompt('Nuevo precio del producto:', product.price)) || product.price;
+    const newStock = parseInt(prompt('Nuevo stock del producto:', product.stock)) || product.stock;
+
+    // Crear el nuevo producto actualizado
+    const updatedProduct = { ...product, name: newName, price: newPrice, stock: newStock };
+
+    // Actualizar el producto en la lista
+    products[index] = updatedProduct;
+
+    // Guardar la lista de productos actualizada en localStorage
+    saveProductsToLocalStorage();
+    displayAdminProducts(); // Volver a mostrar la lista actualizada
+}
+// Función para agregar producto
+function addProduct(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('product-name').value;
+    const price = parseFloat(document.getElementById('product-price').value);
+    const stock = parseInt(document.getElementById('product-stock').value);
+    const images = document.getElementById('product-images').value.split(',');
+
+    // Crear el nuevo producto
+    const newProduct = {
+        id: Date.now(), // Crear un ID único
+        name,
+        price,
+        stock,
+        images,
+    };
+
+    // Agregar el producto a la lista de productos
+    products.push(newProduct);
+
+    // Guardar los productos en localStorage
+    saveProductsToLocalStorage();
+
+    // Actualizar la vista de productos
+    displayAdminProducts();
+    alert('Producto agregado con éxito.');
+}
+// Función para mostrar productos en la página principal (compradores)
+function displayProducts() {
+    const productsContainer = document.getElementById('products');
+    productsContainer.innerHTML = ''; // Limpiar lista existente
+
+    // Iterar sobre los productos
+    products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product-item');
+        
+        // Mostrar el nombre, precio, stock y la primera imagen
+        productDiv.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Precio: $${product.price}</p>
+            <p>Stock disponible: ${product.stock}</p>
+            <img src="${product.images[0]}" alt="${product.name}" style="max-width: 100%; height: auto; border-radius: 8px;">
+        `;
+
+        // Crear el botón de "Añadir al carrito"
+        const addToCartButton = document.createElement('button');
+        addToCartButton.textContent = 'Añadir al carrito';
+        addToCartButton.onclick = () => addToCart(product.id);
+        productDiv.appendChild(addToCartButton);
+
+        productsContainer.appendChild(productDiv);
+    });
+}
+// Cargar los productos desde localStorage al cargar la página
+window.onload = function() {
+    displayAdminProducts(); // Mostrar los productos del panel de administración
+    displayProducts(); // Mostrar productos en la página principal (compradores)
+};

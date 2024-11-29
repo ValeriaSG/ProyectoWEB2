@@ -89,42 +89,6 @@ form {
     background-color: #555555;
 }
 
-.carousel {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 10px 0;
-    overflow: hidden;
-}
-
-.carousel img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.carousel-button {
-    position: absolute;
-    top: 45%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    font-size: 10px;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1;
-}
-
-.carousel-button:first-child {
-    left: 0;
-
-}
-
-.carousel-button:last-child {
-    right: 15px;
-}
-
 .product {
     margin: 20px;
     border: 1px solid #ddd;
@@ -188,15 +152,6 @@ footer p {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.admin-product {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
 #seller-auth {
     text-align: center;
@@ -347,4 +302,57 @@ footer p {
     .product-item img {
         height: 260px; /* Reducir aún más la altura de la imagen */
     }
+}
+img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.admin-product {
+    border: 1px solid #dd9595;         /* Borde del recuadro */
+    padding: 20px;                      /* Aumentar el espacio dentro del recuadro */
+    margin: 10px 0;                     /* Espacio entre recuadros */
+    border-radius: 8px;                 /* Bordes redondeados */
+    display: flex;                      /* Usamos flexbox para distribuir los elementos */
+    justify-content: flex-start;        /* Alinea los elementos hacia la izquierda */
+    align-items: flex-start;            /* Alinea el contenido hacia arriba */
+    max-width: 100%;                    /* Asegura que el recuadro no se salga del contenedor */
+    position: relative;                 /* Necesario para los botones */
+    flex-wrap: wrap;                    /* Permite que los elementos se ajusten en líneas si es necesario */
+}
+
+.admin-product img {
+    width: 150px;                       /* Ajusta el ancho de la imagen */
+    height: auto;                       /* Mantiene la proporción de la imagen */
+    border-radius: 8px;                 /* Bordes redondeados en la imagen */
+    margin-right: 20px;                 /* Espacio entre la imagen y el texto */
+}
+
+.admin-product h3,
+.admin-product p {
+    margin: 0 0 10px 0;                 /* Espaciado entre los títulos y el párrafo */
+    flex: 1;                            /* Permite que el texto ocupe el espacio restante */
+}
+
+.admin-product .button-container {
+    display: flex;                      /* Utiliza flexbox para los botones */
+    gap: 10px;                          /* Espacio entre los botones */
+    align-items: center;                /* Alinea los botones */
+    width: 100%;                         /* Asegura que los botones ocupen todo el ancho disponible */
+    justify-content: flex-start;        /* Alinea los botones a la izquierda */
+}
+
+.admin-product button {
+    padding: 8px 12px;                  /* Espaciado interno de los botones */
+    border: none;                       /* Eliminar borde */
+    background-color: #dd9595;          /* Color de fondo */
+    color: white;                       /* Color de texto */
+    border-radius: 5px;                 /* Bordes redondeados */
+    cursor: pointer;                    /* Cambiar cursor al pasar */
+    font-size: 14px;                    /* Tamaño de fuente */
+}
+
+.admin-product button:hover {
+    background-color: #b77a7a;          /* Color de fondo al pasar el ratón */
 }
