@@ -1,4 +1,4 @@
-const usersDb = {}; // Base de datos de usuarios (en realidad debería ser un JSON o base de datos real).
+const usersDb = {}; // Base de datos de usuarios (en realidad debería ser un JSON o base de datos real).  COMENTARIO
 
 let currentUser = null;
 let cart = [];
@@ -690,6 +690,7 @@ logoutButton.addEventListener('click', () => {
     // Recargar la página para restablecer el estado inicial
     window.location.reload();
 });
+
 //----------------------------ELIMINAR Y EDITAR-----------------------------------
 // Función para manejar la eliminación de productos
 
