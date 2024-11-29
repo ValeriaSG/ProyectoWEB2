@@ -24,14 +24,111 @@
   ],
   "products": [
     {
-      "id": 1732843808262,
-      "name": "New York",
-      "price": 1000,
-      "stock": 12,
+      "id": 1732864914526,
+      "name": "Boston Red Sox",
+      "price": 999,
+      "stock": 10,
       "images": [
-        "https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_3QR.png?v=1698727230",
-        " https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_F.png?v=1698727230",
-        " https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_3QL.png?v=1698727230 "
+        "https://www.newera.mx/cdn/shop/files/60493768_59FIFTY_LIFESTYLEENERGY_BOSRED_OTC_F.png?v=1698727230"
+      ]
+    },
+    {
+      "id": 1732865025069,
+      "name": "Boston Red Sox",
+      "price": 1099,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/files/60598076_59FIFTY_LifestyleEnergy_BOSRED_WLT_F.jpg?v=1728863538"
+      ]
+    },
+    {
+      "id": 1732865086233,
+      "name": "Boston Red Sox",
+      "price": 999,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/files/60417788_59FIFTY_TEAMSHIMMER_BOSRED_OTC_F.png?v=1688688139"
+      ]
+    },
+    {
+      "id": 1732865125762,
+      "name": "Chicago White Sox",
+      "price": 999,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/files/14391622_59FIFTY_MLB_PIN_STRIPE_CHIWHI_BLK_F.jpg?v=1729929325"
+      ]
+    },
+    {
+      "id": 1732865175258,
+      "name": "Chicago White Sox",
+      "price": 999,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/files/60426585_59FIFTY_CITYICON_CHIWHI_CHW_F.png?v=1693959208"
+      ]
+    },
+    {
+      "id": 1732865225182,
+      "name": "Chicago White Sox",
+      "price": 99,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/files/60504355_59FIFTY_COLORBRUSH_CHIWHI_STN_F.png?v=1709059965"
+      ]
+    },
+    {
+      "id": 1732865274881,
+      "name": "Angeles Angels",
+      "price": 1099,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/files/60655838_59FIFTY_MLB_ANGANG_BLK_F.jpg?v=1731904617"
+      ]
+    },
+    {
+      "id": 1732865310117,
+      "name": "Angeles Angels",
+      "price": 999,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/products/9286963396638.jpg?v=1667131910"
+      ]
+    },
+    {
+      "id": 1732865354056,
+      "name": "All Over",
+      "price": 1199,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/products/unnamed_85f1b3de-8666-43a0-a557-89b9c4e2cc7e.jpg?v=1667109595"
+      ]
+    },
+    {
+      "id": 1732865401248,
+      "name": "Angeles Dodgers",
+      "price": 999,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/files/60366947_59FIFTY_M5950NEONE3_LOSDOD_BLK_F.png?v=1692725663"
+      ]
+    },
+    {
+      "id": 1732865450341,
+      "name": "New York Yankees",
+      "price": 999,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/products/11591125_59FIFTY_MLBBASICFITTED_NEYYAN_GRA_F.png?v=1688498128"
+      ]
+    },
+    {
+      "id": 1732865494937,
+      "name": "New York Yankees",
+      "price": 999,
+      "stock": 10,
+      "images": [
+        "https://www.newera.mx/cdn/shop/files/60358061_1.png?v=1704412507"
       ]
     }
   ],
