@@ -265,15 +265,105 @@ footer p {
     border-bottom: none;
 }
 
-.product-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
+/* Contenedor de productos */
+#products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Tamaño mínimo más grande */
+    gap: 30px; /* Más espacio entre tarjetas */
+    padding: 20px;
+    background-color: #f9f9f9;
+    max-width: 1400px; /* Limitar el ancho máximo del contenedor */
+    margin: 0 auto; /* Centrar el contenedor */
 }
 
+/* Estilo de cada producto */
+.product-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+    padding: 25px; /* Más espacio interno */
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    max-width: 400px; /* Ampliar el tamaño máximo del contenedor */
+    margin: 0 auto; /* Centrar la tarjeta dentro del contenedor */
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más fuerte al pasar el mouse */
+}
+
+/* Nombre del producto */
+.product-item h3 {
+    font-size: 1.4rem; /* Texto más grande */
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Precio */
+.product-item p {
+    font-size: 1.1rem; /* Texto más grande */
+    color: #555;
+    margin: 10px 0;
+}
+
+/* Imagen del producto */
 .product-item img {
-    max-width: 100px;
-    height: auto;
-    margin-bottom: 10px;
+    width: 100%;
+    height: 350px; /* Imagen más grande */
+    border-radius: 10px; /* Bordes redondeados */
+    margin: 0 auto 20px; /* Centrar imagen y agregar espacio inferior */
+    object-fit: cover; /* Recorta la imagen si es necesario */
+    display: block; /* Asegurar que la imagen esté centrada */
+}
+
+/* Botón de agregar al carrito */
+.product-item button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 12px 20px; /* Botón ligeramente más grande */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem; /* Texto más grande */
+    transition: background-color 0.2s;
+}
+
+.product-item button:hover {
+    background-color: #000000e8;
+}
+
+/* Estilos responsivos para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .product-item {
+        padding: 20px; /* Reducir un poco el relleno */
+    }
+
+    .product-item h3 {
+        font-size: 1.2rem; /* Reducir texto en pantallas pequeñas */
+    }
+
+    .product-item p {
+        font-size: 1rem;
+    }
+
+    .product-item img {
+        height: 300px; /* Reducir altura de la imagen en pantallas pequeñas */
+    }
+
+    .product-item button {
+        font-size: 0.9rem; /* Botón más compacto */
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    #products {
+        grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+    }
+
+    .product-item img {
+        height: 260px; /* Reducir aún más la altura de la imagen */
+    }
 }
