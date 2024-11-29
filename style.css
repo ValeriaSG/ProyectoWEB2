@@ -74,25 +74,6 @@ form {
     margin: 20px;
 }
 
-
-@media (max-width: 1200px) {
-    .product {
-        width: 30%; 
-    }
-}
-
-@media (max-width: 768px) {
-    .product {
-        width: 45%; 
-    }
-}
-
-@media (max-width: 480px) {
-    .product {
-        width: 100%; 
-    }
-}
-
 #login-button {
     background-color: #201f1f;
     color: white;
@@ -285,7 +266,7 @@ footer p {
     padding: 25px; /* Más espacio interno */
     text-align: center;
     transition: transform 0.2s, box-shadow 0.2s;
-    max-width: 400px; /* Ampliar el tamaño máximo del contenedor */
+    max-width: 200px; /* Ampliar el tamaño máximo del contenedor */
     margin: 0 auto; /* Centrar la tarjeta dentro del contenedor */
 }
 
@@ -320,7 +301,7 @@ footer p {
 
 /* Botón de agregar al carrito */
 .product-item button {
-    background-color: #333;
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 12px 20px; /* Botón ligeramente más grande */
@@ -331,7 +312,7 @@ footer p {
 }
 
 .product-item button:hover {
-    background-color: #000000e8;
+    background-color: #0056b3;
 }
 
 /* Estilos responsivos para pantallas más pequeñas */
