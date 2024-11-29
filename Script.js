@@ -487,12 +487,19 @@ function displayProducts() {
             <h3>${product.name}</h3>
             <p>Precio: $${product.price}</p>
             <p>Stock disponible: ${product.stock}</p>
-            <img src="${product.images[0]}" alt="${product.name}" style="max-width: 100px; height: auto;">
-            <button onclick="addToCart(${product.id})">Agregar al carrito</button>
+            <img src="${product.images[0]}" alt="${product.name}" style="max-width: 100%; height: auto; border-radius: 8px;">
         `;
+
+        // Crear el botón de "Añadir al carrito"
+        const addToCartButton = document.createElement('button');
+        addToCartButton.textContent = 'Añadir al carrito';
+        addToCartButton.onclick = () => addToCart(product.id); // Vincular con la función addToCart
+        productDiv.appendChild(addToCartButton);
+
         productsContainer.appendChild(productDiv);
     });
 }
+
 
 // Función para cargar productos desde el servidor JSON al inicio
 async function loadProducts() {
@@ -521,7 +528,7 @@ function loadCart() {
     if (!currentUser) return;
     const savedCart = localStorage.getItem(`cart_${currentUser.email}`);
     cart = savedCart ? JSON.parse(savedCart) : [];
-    updateCart();
+    updateCart(); // Actualizar la interfaz del carrito
 }
 
 // Función para guardar el carrito en localStorage
@@ -529,6 +536,7 @@ function saveCart() {
     if (!currentUser) return;
     localStorage.setItem(`cart_${currentUser.email}`, JSON.stringify(cart));
 }
+
 
 // Modificar la función `addToCart` para guardar el carrito
 function addToCart(productId) {
@@ -546,13 +554,14 @@ function addToCart(productId) {
             price: product.price,
         });
         saveCart(); // Guardar el carrito actualizado
-        updateCart();
-        displayProducts();
+        updateCart(); // Actualizar la interfaz del carrito
+        displayProducts(); // Refrescar la lista de productos con el stock actualizado
         alert(`${product.name} añadido al carrito.`);
     } else {
         alert(`Lo sentimos, el producto "${product.name}" está agotado.`);
     }
 }
+
 
 // Modificar la función `removeFromCart` para guardar el carrito
 function removeFromCart(index) {
