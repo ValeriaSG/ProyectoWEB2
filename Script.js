@@ -633,6 +633,7 @@ logoutButton.addEventListener('click', () => {
 });
 
 //----------------------------ELIMINAR Y EDITAR-----------------------------------
+/*
 // Función para manejar la eliminación de productos
 
 // Guardar productos en localStorage
@@ -752,3 +753,4 @@ window.onload = function() {
     displayAdminProducts(); // Mostrar los productos del panel de administración
     displayProducts(); // Mostrar productos en la página principal (compradores)
 };
+*/
