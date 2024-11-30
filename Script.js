@@ -92,7 +92,7 @@ function removeFromCart(index) {
 async function fetchUsers() {
     try {
         console.log("Obteniendo usuarios desde JSON Server...");
-        const response = await fetch('http://localhost:3000/users');
+        const response = await fetch('https://proyectoweb2-0nzz.onrender.com/users');
         if (!response.ok) {
             throw new Error(`Error al obtener usuarios: ${response.statusText}`);
         }
@@ -109,7 +109,7 @@ async function fetchUsers() {
 async function saveUser(newUser) {
     try {
         console.log("Intentando guardar usuario en JSON Server:", newUser); // Debug
-        const response = await fetch('http://localhost:3000/users', {
+        const response = await fetch('https://proyectoweb2-0nzz.onrender.com/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -334,7 +334,7 @@ async function addProduct(e) {
 
     try {
         // Guardar el producto en el servidor JSON
-        const response = await fetch('http://localhost:3000/products', {
+        const response = await fetch('https://proyectoweb2-0nzz.onrender.com/products', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -393,7 +393,7 @@ function displayProducts() {
 // Función para cargar productos desde el servidor JSON al inicio
 async function loadProducts() {
     try {
-        const response = await fetch('http://localhost:3000/products');
+        const response = await fetch('https://proyectoweb2-0nzz.onrender.com/products');
         if (!response.ok) {
             throw new Error(`Error al obtener productos: ${response.statusText}`);
         }
@@ -522,7 +522,7 @@ async function finalizePurchase() {
 
     try {
         // Guardar la transacción en el servidor JSON
-        const response = await fetch('http://localhost:3000/transactions', {
+        const response = await fetch('https://proyectoweb2-0nzz.onrender.com/transactions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -555,7 +555,7 @@ async function loadTransactions() {
     if (!isSeller) return;
 
     try {
-        const response = await fetch('http://localhost:3000/transactions');
+        const response = await fetch('https://proyectoweb2-0nzz.onrender.com/transactions');
         if (!response.ok) {
             throw new Error(`Error al obtener transacciones: ${response.statusText}`);
         }
@@ -634,7 +634,7 @@ logoutButton.addEventListener('click', () => {
 
 //----------------------------ELIMINAR Y EDITAR-----------------------------------
 
-const BASE_URL = 'http://localhost:3000'; 
+const BASE_URL = 'https://proyectoweb2-0nzz.onrender.com'; 
 
 // Mostrar productos en el panel de administración
 function displayAdminProducts() {
