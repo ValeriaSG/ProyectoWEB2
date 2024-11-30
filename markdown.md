@@ -53,3 +53,14 @@ En este archivo controlamos todos los aspectos de la apariencia de nuestro sitio
 
 ## Función del archivo data.json
 Aqui lo estamos usando para poder almacenar e intercambiar datos, tales como los productos, transacciones y usuarios. Esto nos permite usar un server JSON. 
+
+## Función del archivo server.js
+En este caso, se emplea un servidor en Node.js empleando el marco de trabajo Express, diseñado para gestionar las operaciones de un sistema que emplea un archivo JSON (data.json) como base de datos. A continuación, detallo cada segmento del código desde el punto de vista de un alumno de ingeniería informática:
+Express va a ofrecer los instrumentos para establecer el servidor y gestionar las rutas HTTP (GET, POST, PUT, DELETE).
+Mientras que body-parser facilita el manejo de los datos transmitidos en el contenido de las peticiones HTTP en formato JSON. Despues tendremos a fs (File System), el cual es útil para leer y redactar información en archivos, en este escenario, el archivo data.json. Cors nos facilitará el acceso de otros dominios al servidor, beneficioso para aplicaciones instaladas en diversas plataformas.
+Despues vamos a establecer una versión de expres con const app = express() y se determina el puerto en el que operará el servidor (PORT = 3000). Tenemos que app.use(cors()) activa la capacidad de interacción con CORS, lo que posibilita que la página web se comunique con el servidor desde un dominio diferente, mientras que app.use(bodyParser.json()) será el que se encargue de configurar el servidor para que interprete de manera adecuada los datos JSON transmitidos en las peticiones. Despues vamos a usar readData() para poder examinar la información en data.json, la transforma de texto a un objeto JSON y la restituye. Esto se emplea para recopilar la información actual. DataWrite(data) recibe un objeto JSON, lo transforma en texto formateado y lo redacta en data.json, renovando así la base de datos. Herramientas para gestionar operaciones en usuarios, productos y servicios y transacciones.  Ahora vamos a tener que POST/mercancías será el que incorpora un producto novedoso, creando un ID singular, y lo almacena en data.json. Esta parte nos va a permitir eliminar productos retomando su id, ya que anteriormente se presentaban problemas con eso pero al implementar DELETE /products/:id podemos eliminar un producto señalado por su identificación. Refiriendinos a la lista de productos para descartar aquellos que se ajusten al ID proporcionado.
+Y finalmente tenemos esta parte que se encargue se inicializar el puerto 3000, de eso se encarga nuestro app.listen(PORT,...) y que cuando el servidor está en funcionamiento, presenta un mensaje en la consola que señala la actividad del servidor localhost3000.
+
+
+
+
