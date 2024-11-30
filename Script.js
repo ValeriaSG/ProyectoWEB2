@@ -14,73 +14,14 @@ const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
 const toggleAuthButton = document.getElementById('toggle-auth');
 
-function displayProducts() {
-    productsDiv.innerHTML = '';
-    products.forEach(product => {
-        const productDiv = document.createElement('div');
-        productDiv.classList.add('product');
-
-        // Mostrar detalles del producto
-        productDiv.innerHTML = `
-            <h3>${product.name}</h3>
-            <p>Precio: $${product.price}</p>
-            <p>Stock disponible: ${product.stock}</p>
-        `;
-
-        // Crear el carrusel
-        const carouselDiv = document.createElement('div');
-        carouselDiv.classList.add('carousel');
-        
-        // Crear una imagen inicial
-        const imgElement = document.createElement('img');
-        imgElement.src = product.images[0];
-        imgElement.alt = `${product.name} - Imagen principal`;
-        carouselDiv.appendChild(imgElement);
-
-        // Crear botones de navegación del carrusel
-        const prevButton = document.createElement('button');
-        prevButton.classList.add('carousel-button');
-        prevButton.textContent = '<';
-        prevButton.onclick = () => navigateCarousel(product.images, imgElement, -1);
-
-        const nextButton = document.createElement('button');
-        nextButton.classList.add('carousel-button');
-        nextButton.textContent = '>';
-        nextButton.onclick = () => navigateCarousel(product.images, imgElement, 1);
-
-        // Agregar botones al carrusel
-        carouselDiv.appendChild(prevButton);
-        carouselDiv.appendChild(nextButton);
-
-        productDiv.appendChild(carouselDiv);
-
-        // Botón para añadir al carrito
-        const addButton = document.createElement('button');
-        addButton.textContent = 'Añadir al carrito';
-        addButton.disabled = product.stock === 0; // Deshabilitar si no hay stock
-        addButton.onclick = () => addToCart(product.id);
-        productDiv.appendChild(addButton);
-
-        productsDiv.appendChild(productDiv);
-    });
-}
-
-// Función para manejar la navegación del carrusel
-function navigateCarousel(images, imgElement, direction) {
-    const currentIndex = images.indexOf(imgElement.src);
-    const newIndex = (currentIndex + direction + images.length) % images.length;
-    imgElement.src = images[newIndex];
-}
-
-function addToCart(productId) {
-    if (!currentUser) {
-        alert('¡Debes iniciar sesión para agregar productos al carrito!');
-        return;
-    }
-
-
     //----------------------Esto nos da nuestro stock de la tienda--------------------
     // Buscar el producto en la lista original
+    function addToCart(productId) {
+        if (!currentUser) {
+            alert('¡Debes iniciar sesión para agregar productos al carrito!');
+            return;
+        }
+    
     const product = products.find(p => p.id === productId);
 
     // Verificar si hay stock disponible
@@ -88,7 +29,7 @@ function addToCart(productId) {
         // Reducir el stock en la lista original
         product.stock--;
 
-        // Agregar al carrito (opcionalmente, puedes clonar el objeto si no deseas modificar el original)
+        // Agregar al carrito
         cart.push({
             id: product.id,
             name: product.name,
@@ -290,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Base de datos de vendedores con datos fijos
 const sellerUsersDb = {
-    "admin@example.com": { password: "admin123", name: "Admin" }
+    "capstyle@gmail.com": { password: "1234", name: "Valeria y Antonio" }
 };
 let isSeller = false; // Estado para determinar si es un vendedor
 
